@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benjamin Truong — Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0C0E;
+    --bg-elev:#131519;
+    --bg-elev-2:#191C21;
+    --fg:#F2F0EA;
+    --fg-dim:#9A9DA3;
+    --fg-faint:#5C6067;
+    --accent:#3ECF7E;
+    --accent-soft:#1D3A2A;
+    --line:#24272C;
+    --radius:10px;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Manrope', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#0B0C0E;}
+
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif;margin:0;letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(11,12,14,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    display:inline-block;
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:36px;
+  }
+  .nav-links a{
+    font-size:15px;
+    color:var(--fg-dim);
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{color:var(--fg);}
+  .nav-cta{
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .status-pill{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--fg-dim);
+    border:1px solid var(--line);
+    padding:7px 14px;
+    border-radius:999px;
+  }
+  .status-pill .pulse{
+    width:7px;height:7px;border-radius:50%;
+    background:#5FD68B;
+    box-shadow:0 0 0 0 rgba(95,214,139,.6);
+    animation:pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(95,214,139,.5);}
+    70%{box-shadow:0 0 0 7px rgba(95,214,139,0);}
+    100%{box-shadow:0 0 0 0 rgba(95,214,139,0);}
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 20px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-solid{
+    background:var(--fg);
+    color:var(--bg);
+  }
+  .btn-solid:hover{transform:translateY(-1px);}
+  .btn-outline{
+    border-color:var(--line);
+    color:var(--fg);
+  }
+  .btn-outline:hover{border-color:var(--fg-faint);}
+  .btn-accent{
+    background:var(--accent);
+    color:#07210F;
+  }
+  .btn-accent:hover{transform:translateY(-1px);}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 0 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-200px; right:-160px;
+    width:520px;height:520px;
+    background:radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    opacity:.5;
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:var(--fg-dim);
+    margin-bottom:28px;
+  }
+  .eyebrow .rule{
+    width:28px;height:1px;background:var(--accent);
+  }
+  .hero-name{
+    font-size:clamp(52px, 9vw, 108px);
+    font-weight:700;
+    line-height:0.98;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0 26px;
+  }
+  .hero-name .outline{
+    -webkit-text-stroke:1.5px var(--fg);
+    color:transparent;
+  }
+  .hero-body{
+    display:grid;
+    grid-template-columns:1.3fr 0.9fr;
+    gap:56px;
+    margin-top:44px;
+    align-items:start;
+  }
+  @media (max-width:860px){
+    .hero-body{grid-template-columns:1fr;}
+  }
+  .hero-role{
+    font-size:20px;
+    color:var(--fg-dim);
+    max-width:46ch;
+  }
+  .hero-role strong{color:var(--fg); font-weight:600;}
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .code-card{
+    background:var(--bg-elev);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 24px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    color:var(--fg-dim);
+    line-height:1.85;
+  }
+  .code-card .kw{color:#7FB4E8;}
+  .code-card .str{color:var(--accent);}
+  .code-card .prop{color:#9AD8B0;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{
+    padding:88px 0;
+    border-top:1px solid var(--line);
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:52px;
+  }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--accent);
+  }
+  .section-title{
+    font-size:clamp(28px,4vw,40px);
+    font-weight:600;
+    margin-top:8px;
+  }
+  .section-sub{
+    color:var(--fg-dim);
+    font-size:15px;
+    max-width:38ch;
+    text-align:right;
+  }
+  @media (max-width:700px){
+    .section-head{flex-direction:column;}
+    .section-sub{text-align:left;}
+  }
+
+  /* ---------- WORK EXPERIENCE ---------- */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+  }
+  .tl-item{
+    display:grid;
+    grid-template-columns:160px 1fr;
+    gap:32px;
+    padding:28px 0;
+    border-top:1px solid var(--line);
+  }
+  .tl-item:first-child{border-top:none;}
+  .tl-date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--fg-faint);
+    padding-top:4px;
+  }
+  .tl-role{
+    font-size:19px;
+    font-weight:600;
+    font-family:'Space Grotesk', sans-serif;
+  }
+  .tl-company{
+    color:var(--accent);
+    font-weight:500;
+  }
+  .tl-desc{
+    color:var(--fg-dim);
+    margin-top:10px;
+    max-width:62ch;
+    font-size:15px;
+  }
+  .tl-stack{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:14px;
+  }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--fg-dim);
+    border:1px solid var(--line);
+    padding:4px 10px;
+    border-radius:6px;
+  }
+  @media (max-width:640px){
+    .tl-item{grid-template-columns:1fr;gap:8px;}
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  @media (max-width:760px){
+    .project-grid{grid-template-columns:1fr;}
+  }
+  .project-card{
+    background:var(--bg-elev);
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    transition:background .15s ease;
+  }
+  .project-card:hover{background:var(--bg-elev-2);}
+  .project-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .project-title{
+    font-size:20px;
+    font-weight:600;
+  }
+  .project-arrow{
+    width:34px;height:34px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .project-card:hover .project-arrow{
+    border-color:var(--accent);
+    transform:rotate(45deg);
+  }
+  .project-desc{
+    color:var(--fg-dim);
+    font-size:14.5px;
+  }
+  .project-stack{
+    display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px;
+  }
+
+  /* ---------- RESUME ---------- */
+  .resume-panel{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:32px;
+    background:var(--bg-elev);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:40px;
+  }
+  @media (max-width:700px){
+    .resume-panel{grid-template-columns:1fr; text-align:left;}
+  }
+  .resume-stats{
+    display:flex;
+    gap:40px;
+    margin-top:24px;
+    flex-wrap:wrap;
+  }
+  .stat-num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:30px;
+    font-weight:700;
+    color:var(--accent);
+  }
+  .stat-label{
+    font-size:13px;
+    color:var(--fg-dim);
+    margin-top:2px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:64px;
+  }
+  @media (max-width:800px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  .contact-email{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(26px,4vw,42px);
+    font-weight:600;
+    display:inline-block;
+    border-bottom:2px solid var(--accent);
+    padding-bottom:4px;
+  }
+  .contact-list{
+    margin-top:36px;
+    display:flex;
+    flex-direction:column;
+  }
+  .contact-list a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+    color:var(--fg-dim);
+    font-size:15px;
+    transition:color .15s ease, padding-left .15s ease;
+  }
+  .contact-list a:first-child{border-top:none;}
+  .contact-list a:hover{color:var(--fg); padding-left:6px;}
+
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:20px;
+  }
+  .field label{
+    font-size:13px;
+    color:var(--fg-dim);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .field input, .field textarea{
+    background:var(--bg-elev);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:12px 14px;
+    color:var(--fg);
+    font-family:'Manrope', sans-serif;
+    font-size:14.5px;
+    resize:none;
+  }
+  .field input:focus, .field textarea:focus{
+    outline:none;
+    border-color:var(--accent);
+  }
+
+  /* ---------- SUCCESS MODAL ---------- */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(6,7,8,0.72);
+    backdrop-filter:blur(4px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:200;
+    padding:20px;
+  }
+  .modal-overlay.is-open{
+    display:flex;
+    animation:overlayIn .18s ease;
+  }
+  @keyframes overlayIn{
+    from{opacity:0;}
+    to{opacity:1;}
+  }
+  .modal-box{
+    background:var(--bg-elev);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:40px 36px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+    position:relative;
+    animation:modalIn .22s ease;
+  }
+  @keyframes modalIn{
+    from{opacity:0; transform:translateY(10px) scale(.98);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  .modal-icon{
+    width:56px;height:56px;
+    border-radius:50%;
+    background:var(--accent-soft);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 22px;
+  }
+  .modal-icon svg{
+    width:26px;height:26px;
+  }
+  .modal-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:22px;
+    font-weight:600;
+  }
+  .modal-body{
+    color:var(--fg-dim);
+    font-size:14.5px;
+    margin-top:10px;
+  }
+  .modal-close{
+    margin-top:28px;
+    width:100%;
+    justify-content:center;
+  }
+  .modal-dismiss{
+    position:absolute;
+    top:14px;right:14px;
+    width:28px;height:28px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--fg-dim);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    line-height:1;
+  }
+  .modal-dismiss:hover{color:var(--fg); border-color:var(--fg-faint);}
+  .modal-box.is-error .modal-icon{
+    background:#3A1D1D;
+  }
+  .field-error{
+    font-size:13px;
+    color:#E8837A;
+    margin-top:10px;
+    display:none;
+  }
+  .field-error.is-visible{display:block;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+  }
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13px;
+    color:var(--fg-faint);
+    flex-wrap:wrap;
+    gap:12px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>BT</div>
+    <div class="nav-links">
+      <a href="#work">Work Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <div class="status-pill"><span class="pulse"></span>Open to opportunities</div>
+      <a href="#contact" class="btn btn-accent">Get in touch</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" style="border-top:none;">
+  <div class="wrap">
+    <div class="eyebrow"><span class="rule"></span>Software Developer &nbsp;·&nbsp; Based in Texas</div>
+    <h1 class="hero-name">
+      <span>BENJAMIN</span><span class="outline">TRUONG</span>
+    </h1>
+
+    <div class="hero-body">
+      <div>
+        <p class="hero-role">I build <strong>fast, reliable software</strong> — from backend systems to the interfaces people actually touch.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-accent">View projects</a>
+          <a href="#resume" class="btn btn-outline">Download resume</a>
+        </div>
+      </div>
+      <div class="code-card">
+        <div><span class="kw">const</span> developer = {</div>
+        <div>&nbsp;&nbsp;<span class="prop">name</span>: <span class="str">"Benjamin Truong"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="prop">role</span>: <span class="str">"Software Developer"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="prop">stack</span>: [<span class="str">"PHP"</span>, <span class="str">"Java"</span>, <span class="str">"JavaScript"</span>],</div>
+        <div>&nbsp;&nbsp;<span class="prop">status</span>: <span class="str">"available"</span>,</div>
+        <div>};</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">01</div>
+        <h2 class="section-title">Work Experience</h2>
+      </div>
+      <p class="section-sub">A timeline of where I’ve worked and a brief description of my role at each position.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date mono">Feb 2024 — May 2026</div>
+        <div>
+          <div class="tl-role">Software Developer III, <span class="tl-company">Paycom</span></div>
+          <p class="tl-desc">Developed and maintained scalable web applications using PHP, JavaScript, and jQuery, optimizing performance and enhancing user experience across high-traffic modules.</p>
+          <div class="tl-stack">
+            <span class="tag">PHP</span><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">jQuery</span><span class="tag">AWS</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date mono">May 2023 — Aug 2023</div>
+        <div>
+          <div class="tl-role">Digital Intern, <span class="tl-company">TRC Companies</span></div>
+          <p class="tl-desc">Engineered Python scripts automating Excel data, ensuring efficient conversion into deliverable files, streamlining operations for SCADA-monitored systems.</p>
+          <div class="tl-stack">
+            <span class="tag">JavaScript</span><span class="tag">Python</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">02</div>
+        <h2 class="section-title">Projects</h2>
+      </div>
+      <p class="section-sub">A few things I've built. Swap in real links, screenshots, and write-ups.</p>
+    </div>
+
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Project One</div>
+          <div class="project-arrow">↗</div>
+        </div>
+        <p class="project-desc">Placeholder description of what this project does, who it's for, and the problem it solves.</p>
+        <div class="project-stack">
+          <span class="tag">React</span><span class="tag">Node.js</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Project Two</div>
+          <div class="project-arrow">↗</div>
+        </div>
+        <p class="project-desc">Placeholder description — highlight the technical challenge and how you solved it.</p>
+        <div class="project-stack">
+          <span class="tag">Python</span><span class="tag">FastAPI</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Project Three</div>
+          <div class="project-arrow">↗</div>
+        </div>
+        <p class="project-desc">Placeholder description — mention scale, users, or results if you have numbers.</p>
+        <div class="project-stack">
+          <span class="tag">Next.js</span><span class="tag">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title">Project Four</div>
+          <div class="project-arrow">↗</div>
+        </div>
+        <p class="project-desc">Placeholder description — open source, side project, or something you're proud of.</p>
+        <div class="project-stack">
+          <span class="tag">Go</span><span class="tag">Redis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resume">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">03</div>
+        <h2 class="section-title">Resume</h2>
+      </div>
+      <p class="section-sub">A quick summary, plus the full document if you want the details.</p>
+    </div>
+
+    <div class="resume-panel">
+      <div>
+        <h3 style="font-size:22px;">The short version</h3>
+        <p style="color:var(--fg-dim); max-width:52ch; margin-top:10px;">Software developer with experience across the stack — replace this with a couple of sentences about your background and what kind of roles you're looking for.</p>
+        <div class="resume-stats">
+          <div><div class="stat-num">2+</div><div class="stat-label">Years experience</div></div>
+          <div><div class="stat-num">10+</div><div class="stat-label">Projects shipped</div></div>
+          <div><div class="stat-num">2</div><div class="stat-label">Companies</div></div>
+        </div>
+      </div>
+      <a href="Resume.pdf" class="btn btn-accent" target="_blank" style="white-space:nowrap;">Download PDF ↓</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">04</div>
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <p class="section-sub">Open to new opportunities and interesting projects.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <a href="mailto:benjamintruong2001@gmail.com" class="contact-email">benjamintruong2001@gmail.com</a>
+        <div class="contact-list">
+          <a href="https://github.com/bngei" target="_blank">GitHub <span>↗</span></a>
+          <a href="https://www.linkedin.com/in/bqtruong/" target="_blank">LinkedIn <span>↗</span></a>
+        </div>
+      </div>
+
+      <form id="contact-form" action="https://formspree.io/f/mdeordpa" method="POST">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="What are you working on?" required></textarea>
+        </div>
+        <button id="contact-submit" class="btn btn-accent" type="submit" style="width:100%; justify-content:center;">Send message</button>
+        <p id="contact-error" class="field-error">Something went wrong — please try again, or email me directly.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Benjamin Truong. Built with care.</span>
+    <span class="mono">Available for new opportunities</span>
+  </div>
+</footer>
+
+<div id="modal-overlay" class="modal-overlay">
+  <div id="modal-box" class="modal-box">
+    <button class="modal-dismiss" id="modal-dismiss" aria-label="Close">✕</button>
+    <div class="modal-icon">
+      <svg id="modal-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 12L9.5 17.5L20 6" stroke="#3ECF7E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="modal-title" id="modal-title">Email sent successfully!</div>
+    <p class="modal-body" id="modal-body">Thanks for reaching out — I'll get back to you soon.</p>
+    <button class="btn btn-solid modal-close" id="modal-close-btn">Close</button>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var form = document.getElementById('contact-form');
+    var submitBtn = document.getElementById('contact-submit');
+    var errorText = document.getElementById('contact-error');
+    var overlay = document.getElementById('modal-overlay');
+    var modalBox = document.getElementById('modal-box');
+    var modalTitle = document.getElementById('modal-title');
+    var modalBody = document.getElementById('modal-body');
+
+    function openModal(success){
+      modalBox.classList.toggle('is-error', !success);
+      modalTitle.textContent = success ? 'Email sent successfully!' : 'Message not sent';
+      modalBody.textContent = success
+        ? "Thanks for reaching out — I'll get back to you soon."
+        : "Something went wrong on our end. Please try again in a moment.";
+      overlay.classList.add('is-open');
+    }
+    function closeModal(){
+      overlay.classList.remove('is-open');
+    }
+    document.getElementById('modal-dismiss').addEventListener('click', closeModal);
+    document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay) closeModal();
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      errorText.classList.remove('is-visible');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response){
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send message';
+        if(response.ok){
+          form.reset();
+          openModal(true);
+        } else {
+          errorText.classList.add('is-visible');
+          openModal(false);
+        }
+      }).catch(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send message';
+        errorText.classList.add('is-visible');
+        openModal(false);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
